@@ -10,7 +10,9 @@ If you want to turn off the feature, disable it or uninstall it.
 
 It only works if translate_tabs_to_spaces is set to true.
 
-I don't have a Mac, so it has not been tested on a Mac.
+In addition, it includes a command to align digits by inserting a space in front of multiple carets. You can use it by setting Preferences => Key Bindings to `{ "keys": ["ctrl+alt+a"], "command": "fullwidth_tab_align" },` and so on.
+
+\* I don't have a Mac, so it has not been tested on a Mac.
 
 Translated with www.DeepL.com/Translator (free version)
 
@@ -25,5 +27,8 @@ Sublime Text には translate_tabs_to_spaces という設定項目があって�
 機能をオフにしたい場合は無効化するかアンインストールして下さい。
 
 機能が働くのは translate_tabs_to_spaces がtrueになっている場合のみです。falseの場合は何もしません。
+
+ついでに、複数のキャレットの前方にスペースを挿入して桁位置を合わせるコマンドも入っています。
+Preferences => Key Bindings で `{ "keys": ["ctrl+alt+a"], "command": "fullwidth_tab_align" },` などと設定していただくことで使用できます。
 
 ※私はMacを所持していませんので、Macでの動作確認は行われていません。

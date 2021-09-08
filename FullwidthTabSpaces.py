@@ -18,7 +18,7 @@ class FullwidthTabSpacesListener(sublime_plugin.ViewEventListener):
 #===========================================================================================================
 class FullwidthTabSpacesCommand(sublime_plugin.TextCommand):
     """
-    キャレット位置に水平タブと同等幅のスペースを挿入する
+    キャレット位置に水平タブと同等幅のスペースを挿入するコマンド。
     """
 
     #-----------------------------------------------------------------------------------------------------------
@@ -50,3 +50,41 @@ class FullwidthTabSpacesCommand(sublime_plugin.TextCommand):
         # その数のスペースを挿入するコマンドに置き換える。
         self.view.erase(edit, region)
         self.view.insert(edit, region.begin(), " "*num)
+
+
+#===========================================================================================================
+class FullwidthTabAlignCommand(sublime_plugin.TextCommand):
+    """
+    複数のキャレットの前方にスペースを挿入して、一番うしろに位置しているキャレット位置に合わせるコマンド。
+    """
+
+    #-----------------------------------------------------------------------------------------------------------
+    def run(self, edit):
+
+        # 各選択領域を一つずつ見て、行番号をキー、その行で最も前方にある選択領域を値とする dict を作成する。
+        targets = {}
+        for region in self.view.sel():
+
+            row, _ = self.view.rowcol(region.b)
+
+            if row not in targets:
+                targets[row] = region
+
+        # 作成した dict を一つずつ見て、最も後ろのキャレットＸ座標を取得。
+        alignx = 0
+        for region in targets.values():
+
+            vec = self.view.text_to_layout(region.b)
+
+            if alignx < vec[0]:
+                alignx = vec[0]
+
+        # dict にある各キャレットにスペースを挿入していき、最も後ろのＸ座標に合わせる。
+        # 先頭から順次挿入していくと後続の選択領域は後ろにずれてtargetsで保持しているRegionと合わなくなるため、reversed() で末尾から処理する。
+        for region in reversed(targets.values()):
+
+            vec = self.view.text_to_layout(region.b)
+
+            spaces = round( (alignx - vec[0]) / self.view.em_width() )
+
+            self.view.insert(edit, region.b, " "*spaces)
