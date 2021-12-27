@@ -81,7 +81,7 @@ class FullwidthTabAlignCommand(sublime_plugin.TextCommand):
 
         # dict にある各キャレットにスペースを挿入していき、最も後ろのＸ座標に合わせる。
         # 先頭から順次挿入していくと後続の選択領域は後ろにずれてtargetsで保持しているRegionと合わなくなるため、reversed() で末尾から処理する。
-        for region in reversed(targets.values()):
+        for region in reversed(list( targets.values() )):
 
             vec = self.view.text_to_layout(region.b)
 
