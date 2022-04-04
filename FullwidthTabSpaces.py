@@ -8,6 +8,13 @@ class FullwidthTabSpacesListener(sublime_plugin.ViewEventListener):
     """
 
     #-----------------------------------------------------------------------------------------------------------
+    def applies_to_primary_view_only():
+        """
+        複製されたビューでも動作するようにする。
+        """
+        return False
+
+    #-----------------------------------------------------------------------------------------------------------
     def on_text_command(self, command_name, args):
 
         # 水平タブの insert コマンドが発行されたら独自コマンドに転送する。ただし、translate_tabs_to_spaces がONになっている場合に限る。
