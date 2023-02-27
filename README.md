@@ -26,6 +26,9 @@ Add the following settings in Preferences => Key Bindings.
             { "key": "preceding_text", "operator": "regex_match", "operand": ".*\\w", "match_all": true },
         ]
     },
+    { "keys": ["tab"], "command": "expand_snippet", "context":
+        [{ "key": "has_snippet" }]
+    },
 ```
 > In Preferences => Settings, setting "tab_completion" to false will only slightly change the behavior of autocompletion, but will not change the fact that the "auto_complete" command is issued itself.
 > Please set it back to true for the above settings.
@@ -59,6 +62,9 @@ Preferences => Key Bindings で次の設定を追加してください。
             { "key": "setting.tab_completion", "operator": "equal", "operand": true },
             { "key": "preceding_text", "operator": "regex_match", "operand": ".*\\w", "match_all": true },
         ]
+    },
+    { "keys": ["tab"], "command": "expand_snippet", "context":
+        [{ "key": "has_snippet" }]
     },
 ```
 > Preferences => Settings で tab_completion を false にしても、オートコンプリートの挙動が少し変わるだけで、"auto_complete" コマンドが発行されること自体は変わりません。
